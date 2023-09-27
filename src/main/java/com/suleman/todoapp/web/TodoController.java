@@ -1,6 +1,7 @@
 package com.suleman.todoapp.web;
 
 import com.suleman.todoapp.services.TodoService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,11 @@ public class TodoController {
     @GetMapping("/api/todo")
     public List<TodoItem> allTodoItems() {
         return todoService.getTodoItems();
+    }
+
+    @DeleteMapping("/api/todo/{id}")
+    public void deleteTodoItem(@PathVariable  int id) {
+        todoService.removeTodoItem(id);
     }
 
 }

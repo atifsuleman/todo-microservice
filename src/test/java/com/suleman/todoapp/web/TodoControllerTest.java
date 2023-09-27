@@ -15,7 +15,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -98,6 +99,18 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.[*].id", hasItems(200, 201, 202)))
                 .andExpect(jsonPath("$.[*].description", hasItems("Buy the milk", "Read the book Passage", "Wash the car")))
                 .andExpect(jsonPath("$.[*].done", hasItems(true, false, true)));
+    }
+
+    @Test
+    @DisplayName("should delete given id todo item")
+    void shouldDeleteGivenIdTodoItem() throws Exception {
+        ResultActions response = mockMvc.perform(
+                delete("/api/todo/200")
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        response
+                .andExpect(status().isOk());
+        verify(todoService).removeTodoItem(200);
     }
 
 }
