@@ -11,13 +11,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = TodoController.class)
 @DisplayName("the todo controller")
@@ -44,7 +44,7 @@ public class TodoControllerTest {
         TodoItem todoItem = new TodoItem("Buy the milk");
         todoItem.setId(200);
         todoItem.setDone(true);
-        when(todoService.getTodoItem(200)).thenReturn(todoItem);
+        when(todoService.getTodoItem(200)).thenReturn(Optional.of(todoItem));
 
         ResultActions response = mockMvc.perform(
                 get("/api/todo/200")
@@ -55,6 +55,21 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.id", is(equalTo(200))))
                 .andExpect(jsonPath("$.description", is(equalTo("Buy the milk"))))
                 .andExpect(jsonPath("$.done", is(equalTo(true))));
+    }
+
+    @Test
+    @DisplayName("should return not found error when the given id todo item doesn't exist")
+    void shouldReturnNotFoundErrorWhenTheGivenIdTodoItemDoesnTExist() throws Exception {
+        when(todoService.getTodoItem(488)).thenReturn(Optional.empty());
+
+        ResultActions response = mockMvc.perform(
+                get("/api/todo/488")
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        response
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("todo item 488 could not be found."));
+
     }
 
     @Test

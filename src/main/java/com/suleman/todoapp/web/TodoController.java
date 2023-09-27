@@ -18,7 +18,9 @@ public class TodoController {
 
     @GetMapping("/api/todo/{id}")
     public TodoItem oneTodoItem(@PathVariable  int id) {
-        return todoService.getTodoItem(id);
+        return todoService
+                .getTodoItem(id)
+                .orElseThrow(() -> new TodoItemNotFoundException(id));
     }
 
     @GetMapping("/api/todo")
