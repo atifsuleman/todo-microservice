@@ -133,7 +133,8 @@ public class TodoControllerTest {
         );
 
         response
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", is(equalTo("/api/todo/200"))))
                 .andExpect(jsonPath("$.id", is(equalTo(200))))
                 .andExpect(jsonPath("$.description", is(equalTo("Buy the milk"))))
                 .andExpect(jsonPath("$.done", is(equalTo(false))));

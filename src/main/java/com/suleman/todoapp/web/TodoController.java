@@ -1,8 +1,10 @@
 package com.suleman.todoapp.web;
 
 import com.suleman.todoapp.services.TodoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,8 +34,11 @@ public class TodoController {
     }
 
     @PostMapping("/api/todo")
-    public TodoItem newTodoItem(@RequestBody TodoItem newTodoItem) {
-        return todoService.addTodoItem(new TodoItem(newTodoItem.getDescription()));
+    public ResponseEntity<TodoItem> newTodoItem(@RequestBody TodoItem newTodoItem) {
+        TodoItem addedTodoItem = todoService.addTodoItem(new TodoItem(newTodoItem.getDescription()));
+        return ResponseEntity
+                .created(URI.create("/api/todo/%d".formatted(addedTodoItem.getId())))
+                .body(addedTodoItem);
     }
 
 }
