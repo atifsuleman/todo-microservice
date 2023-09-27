@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TodoService {
-    Optional<TodoItem> getTodoItem(int id);
+    Optional<TodoItem> getTodoItem(Long id);
 
     List<TodoItem> getTodoItems();
 
-    void removeTodoItem(int id);
+    void removeTodoItem(Long id);
+
+    TodoItem addTodoItem(TodoItem newTodoItem);
 }
