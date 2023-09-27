@@ -17,7 +17,7 @@ public class TodoController {
     }
 
     @GetMapping("/api/todo/{id}")
-    public TodoItem oneTodoItem(@PathVariable  Long id) {
+    public TodoItem oneTodoItem(@PathVariable  Long id) throws TodoItemNotFoundException {
         return todoService
                 .getTodoItem(id)
                 .orElseThrow(() -> new TodoItemNotFoundException(id));
@@ -42,7 +42,7 @@ public class TodoController {
     }
 
     @PutMapping("/api/todo")
-    public TodoItem updateTodoItem(@RequestBody TodoItem updateTodoItem) {
+    public TodoItem updateTodoItem(@RequestBody TodoItem updateTodoItem) throws TodoItemNotFoundException {
         return todoService.updateTodoItem(updateTodoItem);
     }
 

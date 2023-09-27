@@ -1,6 +1,7 @@
 package com.suleman.todoapp.services;
 
 import com.suleman.todoapp.web.TodoItem;
+import com.suleman.todoapp.web.TodoItemNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +15,5 @@ public interface TodoService {
 
     TodoItem addTodoItem(TodoItem newTodoItem);
 
-    TodoItem updateTodoItem(TodoItem todoItem);
+    TodoItem updateTodoItem(TodoItem todoItem) throws TodoItemNotFoundException;
 }

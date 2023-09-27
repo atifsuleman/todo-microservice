@@ -162,4 +162,23 @@ public class TodoControllerTest {
         verify(todoService).updateTodoItem(todoItem);
     }
 
+    @Test
+    @DisplayName("should return not found error when the given todo item to update doesn't exist")
+    void shouldReturnNotFoundErrorWhenTheGivenTodoItemToUpdateDoesnTExist() throws Exception {
+        TodoItem todoItem = new TodoItem("Todo item that does not exist");
+        todoItem.setId(488L);
+        todoItem.setDone(true);
+        when(todoService.updateTodoItem(todoItem)).thenThrow(new TodoItemNotFoundException(488L));
+
+        ResultActions response = mockMvc.perform(
+                put("/api/todo")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(todoItem))
+        );
+
+        response
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("todo item 488 could not be found."));
+    }
+
 }
