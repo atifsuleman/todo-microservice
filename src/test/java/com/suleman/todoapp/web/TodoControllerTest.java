@@ -140,4 +140,26 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.done", is(equalTo(false))));
     }
 
+    @Test
+    @DisplayName("should update todo item")
+    void shouldUpdateTodoItem() throws Exception {
+        TodoItem todoItem = new TodoItem("Clean the car");
+        todoItem.setId(200L);
+        todoItem.setDone(true);
+        when(todoService.updateTodoItem(todoItem)).thenReturn(todoItem);
+
+        ResultActions response = mockMvc.perform(
+                put("/api/todo")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(todoItem))
+        );
+
+        response
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(equalTo(200))))
+                .andExpect(jsonPath("$.description", is(equalTo("Clean the car"))))
+                .andExpect(jsonPath("$.done", is(equalTo(true))));
+        verify(todoService).updateTodoItem(todoItem);
+    }
+
 }

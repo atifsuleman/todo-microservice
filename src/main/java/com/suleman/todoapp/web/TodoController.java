@@ -41,4 +41,9 @@ public class TodoController {
                 .body(addedTodoItem);
     }
 
+    @PutMapping("/api/todo")
+    public TodoItem updateTodoItem(@RequestBody TodoItem updateTodoItem) {
+        return todoService.updateTodoItem(updateTodoItem);
+    }
+
 }

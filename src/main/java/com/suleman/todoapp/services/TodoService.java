@@ -13,4 +13,6 @@ public interface TodoService {
     void removeTodoItem(Long id);
 
     TodoItem addTodoItem(TodoItem newTodoItem);
+
+    TodoItem updateTodoItem(TodoItem todoItem);
 }
