@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.*;
@@ -48,7 +47,7 @@ public class TodoControllerTest {
         TodoItem todoItem = new TodoItem("Buy the milk");
         todoItem.setId(200L);
         todoItem.setDone(true);
-        when(todoService.getTodoItem(200L)).thenReturn(Optional.of(todoItem));
+        when(todoService.getTodoItem(200L)).thenReturn(todoItem);
 
         ResultActions response = mockMvc.perform(
                 get("/api/todo/200")
@@ -64,7 +63,7 @@ public class TodoControllerTest {
     @Test
     @DisplayName("should return not found error when the given id todo item doesn't exist")
     void shouldReturnNotFoundErrorWhenTheGivenIdTodoItemDoesnTExist() throws Exception {
-        when(todoService.getTodoItem(488L)).thenReturn(Optional.empty());
+        when(todoService.getTodoItem(488L)).thenThrow(new TodoItemNotFoundException(488L));
 
         ResultActions response = mockMvc.perform(
                 get("/api/todo/488")

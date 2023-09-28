@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TodoService {
-    Optional<TodoItem> getTodoItem(Long id);
+    TodoItem getTodoItem(Long id) throws TodoItemNotFoundException;
 
     List<TodoItem> getTodoItems();
 
