@@ -1,5 +1,7 @@
 package com.suleman.todoapp.web;
 
+import com.suleman.todoapp.model.TodoItem;
+import com.suleman.todoapp.services.TodoItemNotFoundException;
 import com.suleman.todoapp.services.TodoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

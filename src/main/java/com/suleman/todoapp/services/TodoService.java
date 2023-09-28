@@ -1,10 +1,8 @@
 package com.suleman.todoapp.services;
 
-import com.suleman.todoapp.web.TodoItem;
-import com.suleman.todoapp.web.TodoItemNotFoundException;
+import com.suleman.todoapp.model.TodoItem;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TodoService {
     TodoItem getTodoItem(Long id) throws TodoItemNotFoundException;

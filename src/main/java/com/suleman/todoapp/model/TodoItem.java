@@ -1,4 +1,4 @@
-package com.suleman.todoapp.web;
+package com.suleman.todoapp.model;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.suleman.todoapp.web;
+package com.suleman.todoapp.services;
 
 public class TodoItemNotFoundException extends Exception {
     public TodoItemNotFoundException(Long id) {

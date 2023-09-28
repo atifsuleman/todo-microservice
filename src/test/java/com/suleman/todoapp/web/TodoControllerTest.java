@@ -1,6 +1,8 @@
 package com.suleman.todoapp.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.suleman.todoapp.model.TodoItem;
+import com.suleman.todoapp.services.TodoItemNotFoundException;
 import com.suleman.todoapp.services.TodoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
