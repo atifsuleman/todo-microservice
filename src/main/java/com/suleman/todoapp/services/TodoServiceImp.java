@@ -2,9 +2,11 @@ package com.suleman.todoapp.services;
 
 import com.suleman.todoapp.data.TodoRepository;
 import com.suleman.todoapp.model.TodoItem;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TodoServiceImp implements TodoService {
 
     private final TodoRepository todoRepository;
