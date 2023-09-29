@@ -7,10 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(useMainMethod = SpringBootTest.UseMainMethod.ALWAYS)
 @DisplayName("Todo app")
 public class TodoAppIntegrationTest {
-
     @Autowired
     private TodoApplication todoApplication;
 
@@ -19,5 +18,4 @@ public class TodoAppIntegrationTest {
     void shouldLoadTheContext() {
         assertThat(todoApplication).isNotNull();
     }
-
 }
