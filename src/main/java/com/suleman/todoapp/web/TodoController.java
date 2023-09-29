@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/todo")
 public class TodoController {
 
     private final TodoService todoService;
@@ -18,22 +19,22 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @GetMapping("/api/todo/{id}")
+    @GetMapping("/{id}")
     public TodoItem oneTodoItem(@PathVariable  Long id) throws TodoItemNotFoundException {
         return todoService.getTodoItem(id);
     }
 
-    @GetMapping("/api/todo")
+    @GetMapping
     public List<TodoItem> allTodoItems() {
         return todoService.getTodoItems();
     }
 
-    @DeleteMapping("/api/todo/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTodoItem(@PathVariable  Long id) {
         todoService.removeTodoItem(id);
     }
 
-    @PostMapping("/api/todo")
+    @PostMapping
     public ResponseEntity<TodoItem> newTodoItem(@RequestBody TodoItem newTodoItem) {
         TodoItem addedTodoItem = todoService.addTodoItem(new TodoItem(newTodoItem.getDescription()));
         return ResponseEntity
@@ -41,7 +42,7 @@ public class TodoController {
                 .body(addedTodoItem);
     }
 
-    @PutMapping("/api/todo")
+    @PutMapping
     public TodoItem updateTodoItem(@RequestBody TodoItem updateTodoItem) throws TodoItemNotFoundException {
         return todoService.updateTodoItem(updateTodoItem);
     }
